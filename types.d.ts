@@ -1,10 +1,11 @@
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
-import type { ConnInfo, UnoConfig, VNode } from "./deps.ts";
+import type { ConnInfo, VNode, marked, HtmlOptions } from "./deps.ts";
 
 export interface BlogContext {
   state: BlogState;
   connInfo: ConnInfo;
+  marked: typeof marked;
   next: () => Promise<Response>;
 }
 
@@ -49,7 +50,7 @@ export interface BlogSettings {
   /** The element to use as footer */
   footer?: VNode;
   /** Custom CSS */
-  style?: string;
+  styles?: string[];
   /** URL to open graph image. Can be relative. */
   ogImage?: string | {
     url: string;
@@ -63,8 +64,6 @@ export interface BlogSettings {
   dateStyle?: DateStyle;
   /** The canonical URL of the blog */
   canonicalUrl?: string;
-  /** UnoCSS configuration */
-  unocss?: UnoConfig;
   /** Color scheme */
   theme?: "dark" | "light" | "auto";
   /**
@@ -76,6 +75,8 @@ export interface BlogSettings {
   port?: number;
   /** The hostname to serve the blog on */
   hostname?: string;
+  /** Additional links inside head */
+  headLinks?: HtmlOptions["links"]
 }
 
 export interface BlogState extends BlogSettings {

@@ -7,6 +7,7 @@ export {
   fromFileUrl,
   join,
   relative,
+  resolve,
 } from "https://deno.land/std@0.149.0/path/mod.ts";
 export {
   type ConnInfo,
@@ -14,15 +15,15 @@ export {
 } from "https://deno.land/std@0.149.0/http/mod.ts";
 export { extract as frontMatter } from "https://deno.land/std@0.149.0/encoding/front_matter.ts";
 
-export * as gfm from "https://deno.land/x/gfm@0.1.22/mod.ts";
+export { marked } from "https://esm.sh/marked@4.0.18"
 export {
   Fragment,
   h,
   html,
+  type ComponentChildren,
   type HtmlOptions,
   type VNode,
 } from "https://deno.land/x/htm@0.0.10/mod.tsx";
-import { UnoCSS } from "https://deno.land/x/htm@0.0.10/plugins.ts";
 export {
   createReporter,
   type Reporter as GaReporter,
@@ -33,9 +34,3 @@ export { default as removeMarkdown } from "https://esm.sh/remove-markdown@0.5.0"
 
 // Add syntax highlighting support for C by default
 import "https://esm.sh/prismjs@1.28.0/components/prism-c?no-check";
-
-export { UnoCSS };
-export type UnoConfig = typeof UnoCSS extends (
-  arg: infer P | undefined,
-) => unknown ? P
-  : never;

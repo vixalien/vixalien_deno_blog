@@ -14,16 +14,15 @@ import {
   Fragment,
   fromFileUrl,
   frontMatter,
-  gfm,
   h,
   html,
   HtmlOptions,
   join,
+  marked,
   relative,
   removeMarkdown,
   serve,
   serveDir,
-  UnoCSS,
   walk,
 } from "./deps.ts";
 import { Index, PostPage } from "./components.tsx";
@@ -35,6 +34,9 @@ import type {
   BlogState,
   Post,
 } from "./types.d.ts";
+
+export { imageContainer } from "./markedMiddleware/imageContainer.ts";
+export { highlight } from "./markedMiddleware/highlight.ts";
 
 export { Fragment, h };
 
@@ -94,8 +96,6 @@ function hmrSocket(callback) {
  * ```
  */
 export default async function blog(settings?: BlogSettings) {
-  html.use(UnoCSS(settings?.unocss)); // Load custom unocss module if provided
-
   const url = callsites()[1].getFileName()!;
   const blogState = await configureBlog(url, IS_DEV, settings);
 
@@ -139,6 +139,7 @@ function composeMiddlewares(state: BlogState) {
       },
       connInfo,
       state,
+      marked,
     };
 
     if (mws) {
@@ -245,12 +246,12 @@ async function loadPost(postsDirectory: string, path: string) {
     // Note: users can override path of a blog post using
     // pathname in front matter.
     pathname: data.get("pathname") ?? pathname,
-    publishDate: data.get("publish_date")!,
+    publishDate: data.get("publish_date")! || data.get("created"),
     snippet,
     markdown: content,
     coverHtml: data.get("cover_html"),
     ogImage: data.get("og:image"),
-    tags: data.get("tags"),
+    tags: [data.get("tags")].flat().filter((tag) => !!tag) as string[],
   };
   POSTS.set(pathname, post);
   console.log("Load: ", post.pathname);
@@ -295,11 +296,12 @@ export async function handler(
   }
 
   const sharedHtmlOptions: HtmlOptions = {
-    colorScheme: blogState.theme ?? "auto",
+    colorScheme: blogState.theme ?? undefined,
     lang: blogState.lang ?? "en",
     scripts: IS_DEV ? [{ src: "/hmr.js" }] : undefined,
     links: [
       { href: canonicalUrl, rel: "canonical" },
+      ...(blogState.headLinks ?? []),
     ],
   };
 
@@ -343,9 +345,7 @@ export async function handler(
         "twitter:image": ogImage ?? blogState.cover,
         "twitter:card": ogImage ? twitterCard : undefined,
       },
-      styles: [
-        ...(blogState.style ? [blogState.style] : []),
-      ],
+      styles: blogState.styles,
       body: (
         <Index
           state={blogState}
@@ -371,9 +371,7 @@ export async function handler(
         "twitter:card": post.ogImage ? twitterCard : undefined,
       },
       styles: [
-        gfm.CSS,
-        `.markdown-body { --color-canvas-default: transparent !important; --color-canvas-subtle: #edf0f2; --color-border-muted: rgba(128,128,128,0.2); } .markdown-body img + p { margin-top: 16px; }`,
-        ...(blogState.style ? [blogState.style] : []),
+        ...(blogState.styles ? blogState.styles : []),
       ],
       body: <PostPage post={post} state={blogState} />,
     });

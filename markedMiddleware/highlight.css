@@ -1,0 +1,298 @@
+code,
+kbd,
+samp,
+pre {
+  font-family:
+    /* macOS 10.10+ */
+    "Menlo",
+    /* Windows 6+ */
+    "Consolas",
+    /* Android 4+ */
+    "Roboto Mono",
+    /* Ubuntu 10.10+ */
+    "Ubuntu Monospace",
+    /* KDE Plasma 5+ */
+    "Noto Mono",
+    /* KDE Plasma 4+ */
+    "Oxygen Mono",
+    /* Linux/OpenOffice fallback */
+    "Liberation Mono",
+    /* fallback */
+    monospace,
+    /* macOS emoji */
+    "Apple Color Emoji",
+    /* Windows emoji */
+    "Segoe UI Emoji",
+    /* Windows emoji */
+    "Segoe UI Symbol",
+    /* Linux emoji */
+    "Noto Color Emoji";
+}
+
+blockquote {
+  margin: 3em 0;
+  padding: 10px 0;
+  border-width: 4px 0;
+  border-style: double;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+code {
+  padding: 0 5px;
+  font-size: 0.9em;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+pre:not(.not-code) code {
+  display: block;
+  padding: 10px;
+  color: #b2b6bb;
+  background-color: #0a1826;
+  border: 0;
+}
+
+code,
+pre {
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  overflow: auto;
+}
+
+/*
+	Theme: GitHub
+	Description: Light theme as seen on github.com
+	Author: github.com
+	Maintainer: @Hirse
+	Updated: 2021-05-15
+
+	Outdated base version: https://github.com/primer/github-syntax-light
+	Current colors taken from GitHub's CSS
+*/
+pre:not(.not-code) code {
+  color: #24292e;
+  background: #d4e6ff;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #d73a49;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #6f42c1;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #005cc5;
+}
+
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  /* prettylights-syntax-string */
+  color: #032f62;
+}
+
+.hljs-built_in,
+.hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #e36209;
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #6a737d;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #22863a;
+}
+
+.hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #24292e;
+}
+
+.hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #005cc5;
+  font-weight: bold;
+}
+
+.hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #735c0f;
+}
+
+.hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #24292e;
+  font-style: italic;
+}
+
+.hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #24292e;
+  font-weight: bold;
+}
+
+.hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #22863a;
+  background-color: #f0fff4;
+}
+
+.hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+
+@media (prefers-color-scheme: dark) {
+  pre:not(.not-code) code {
+    color: #adbac7;
+    background: #14253b;
+  }
+
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-meta .hljs-keyword,
+  .hljs-template-tag,
+  .hljs-template-variable,
+  .hljs-type,
+  .hljs-variable.language_ {
+    /* prettylights-syntax-keyword */
+    color: #f47067;
+  }
+
+  .hljs-title,
+  .hljs-title.class_,
+  .hljs-title.class_.inherited__,
+  .hljs-title.function_ {
+    /* prettylights-syntax-entity */
+    color: #dcbdfb;
+  }
+
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-operator,
+  .hljs-variable,
+  .hljs-selector-attr,
+  .hljs-selector-class,
+  .hljs-selector-id {
+    /* prettylights-syntax-constant */
+    color: #6cb6ff;
+  }
+
+  .hljs-regexp,
+  .hljs-string,
+  .hljs-meta .hljs-string {
+    /* prettylights-syntax-string */
+    color: #96d0ff;
+  }
+
+  .hljs-built_in,
+  .hljs-symbol {
+    /* prettylights-syntax-variable */
+    color: #f69d50;
+  }
+
+  .hljs-comment,
+  .hljs-code,
+  .hljs-formula {
+    /* prettylights-syntax-comment */
+    color: #768390;
+  }
+
+  .hljs-name,
+  .hljs-quote,
+  .hljs-selector-tag,
+  .hljs-selector-pseudo {
+    /* prettylights-syntax-entity-tag */
+    color: #8ddb8c;
+  }
+
+  .hljs-subst {
+    /* prettylights-syntax-storage-modifier-import */
+    color: #adbac7;
+  }
+
+  .hljs-section {
+    /* prettylights-syntax-markup-heading */
+    color: #316dca;
+    font-weight: bold;
+  }
+
+  .hljs-bullet {
+    /* prettylights-syntax-markup-list */
+    color: #eac55f;
+  }
+
+  .hljs-emphasis {
+    /* prettylights-syntax-markup-italic */
+    color: #adbac7;
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    /* prettylights-syntax-markup-bold */
+    color: #adbac7;
+    font-weight: bold;
+  }
+
+  .hljs-addition {
+    /* prettylights-syntax-markup-inserted */
+    color: #b4f1b4;
+    background-color: #1b4721;
+  }
+
+  .hljs-deletion {
+    /* prettylights-syntax-markup-deleted */
+    color: #ffd8d3;
+    background-color: #78191b;
+  }
+}

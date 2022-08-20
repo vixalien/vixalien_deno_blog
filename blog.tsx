@@ -398,11 +398,10 @@ export async function handler(
         description: "404 - page not found",
       },
       links: [
+        ...sharedHtmlOptions.links!,
         { rel: "canonical", href: new URL("/404", canonicalUrl).href },
       ],
-      styles: [
-        ...(blogState.styles ? blogState.styles : []),
-      ],
+      styles: blogState.styles,
       body: blogState.notFound?.({ req, ctx }) ?? (
         <NotFound ctx={ctx} req={req} />
       ),

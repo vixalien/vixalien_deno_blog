@@ -1,6 +1,6 @@
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
-import type { ConnInfo, VNode, marked, HtmlOptions } from "./deps.ts";
+import type { ConnInfo, HtmlOptions, marked, VNode } from "./deps.ts";
 
 export interface BlogContext {
   state: BlogState;
@@ -76,7 +76,7 @@ export interface BlogSettings {
   /** The hostname to serve the blog on */
   hostname?: string;
   /** Additional links inside head */
-  headLinks?: HtmlOptions["links"]
+  headLinks?: HtmlOptions["links"];
 }
 
 export interface BlogState extends BlogSettings {

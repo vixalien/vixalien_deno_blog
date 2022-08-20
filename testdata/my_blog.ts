@@ -18,5 +18,5 @@ blog({
     { href: "/css/app.css", rel: "stylesheet" },
   ],
   dateStyle: "long",
-  lang: "en-US"
+  lang: "en-US",
 });

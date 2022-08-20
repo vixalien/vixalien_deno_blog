@@ -15,12 +15,12 @@ export {
 } from "https://deno.land/std@0.149.0/http/mod.ts";
 export { extract as frontMatter } from "https://deno.land/std@0.149.0/encoding/front_matter.ts";
 
-export { marked } from "https://esm.sh/marked@4.0.18"
+export { marked } from "https://esm.sh/marked@4.0.18";
 export {
+  type ComponentChildren,
   Fragment,
   h,
   html,
-  type ComponentChildren,
   type HtmlOptions,
   type VNode,
 } from "https://deno.land/x/htm@0.0.10/mod.tsx";

@@ -1,16 +1,19 @@
 # Modified Blog
 
-This is a modified `deno-blog` for my personal use. It's modified so that it may be easier for me to use.
+This is a modified `deno-blog` for my personal use. It's modified so that it may
+be easier for me to use.
 
 Features:
 
 - Removes UnoCSS
 - Uses `marked` instead of `gfm`
-- Provides 2 example middleware: `highlight` & `image-container`, both for markdown
+- Provides 2 example middleware: `highlight` & `image-container`, both for
+  markdown
 - Allows non-array tags (will be treated as one tag string)
 - Allows `created` to be used as `publish_date` for frontmatter
 - Ships 0 JS
-- Add support for `links` (link rel, not social links which are already supported)
+- Add support for `links` (link rel, not social links which are already
+  supported)
 - Uses plain CSS for styling
 - Allows multiple `styles` instead of a single `style`
 - Adds support for large `og:image`

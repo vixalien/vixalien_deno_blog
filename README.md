@@ -22,7 +22,7 @@ Minimal boilerplate blogging. All you need is one boilerplate JavaScript file
 that has 2 lines of code:
 
 ```js
-import blog from "https://deno.land/x/blog/blog.tsx";
+import blog from "https://deno.land/x/vixalien_deno_blog/blog.tsx";
 
 blog();
 ```
@@ -53,7 +53,7 @@ from the Deno Manual.
 You can customize your blog as follows:
 
 ```js
-import blog, { ga, redirects } from "https://deno.land/x/blog/blog.tsx";
+import blog, { ga, redirects } from "https://deno.land/x/vixalien_deno_blog/blog.tsx";
 import { unocss_opts } from "./unocss.ts";
 
 blog({
@@ -92,7 +92,7 @@ settings. You can customize them as follows:
 ```jsx
 /** @jsx h */
 
-import blog, { h } from "https://deno.land/x/blog/blog.tsx";
+import blog, { h } from "https://deno.land/x/vixalien_deno_blog/blog.tsx";
 
 blog({
   title: "My Blog",

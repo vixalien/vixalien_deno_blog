@@ -9,6 +9,6 @@ export const load = (path: string) => {
       resolve(dirname(fromFileUrl(base)), path),
     );
   } else {
-    return fetch(new URL(path, base)).then((response) => response.text);
+    return fetch(new URL(path, base)).then((response) => response.text());
   }
 };

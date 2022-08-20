@@ -17,4 +17,6 @@ blog({
   headLinks: [
     { href: "/css/app.css", rel: "stylesheet" },
   ],
+  dateStyle: "long",
+  lang: "en-US"
 });

@@ -31,6 +31,3 @@ export {
 export { default as callsites } from "https://raw.githubusercontent.com/kt3k/callsites/v1.0.0/mod.ts";
 export { Feed, type Item as FeedItem } from "https://esm.sh/feed@4.2.2";
 export { default as removeMarkdown } from "https://esm.sh/remove-markdown@0.5.0";
-
-// Add syntax highlighting support for C by default
-import "https://esm.sh/prismjs@1.28.0/components/prism-c?no-check";

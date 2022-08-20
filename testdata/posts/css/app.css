@@ -208,3 +208,7 @@ body.overflow-yes .block-image img {
   gap: 4px;
   align-items: center;
 }
+
+.intro-meta {
+  font-weight: bold;
+}

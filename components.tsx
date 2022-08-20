@@ -69,10 +69,34 @@ export function Index({ state, posts }: IndexProps) {
       <div className="welcome">
         <p>{state.description}</p>
       </div>
+      <h2>Posts</h2>
+      <div className="posts">
+        {postIndex.map((
+          { title, pathname, author, publishDate, tags, snippet },
+        ) => (
+          <p>
+            <a href={pathname}>{title} &rarr;</a>
+            <br />
+            <small class="intro-meta">
+              {(author) &&
+                <span>By {author || ""} at{" "}</span>}
+              <PrettyDate
+                date={publishDate}
+                dateStyle={state.dateStyle}
+                lang={state.lang}
+              />
+            </small>
+            <br />
+            <span>{snippet}</span>
+            <br />
+            <Tags tags={tags} />
+          </p>
+        ))}
+      </div>
       {state.links
         ? (
           <div>
-            <h2>Links</h2>
+            <h2>Contact</h2>
             <ul>
               {state.links.map((link) => {
                 const url = new URL(link.url);
@@ -90,7 +114,7 @@ export function Index({ state, posts }: IndexProps) {
 
                 return (
                   <li key={link.title}>
-                    <a href={link.title} className="link-with-icon">
+                    <a href={link.url} className="link-with-icon">
                       {link.icon ? link.icon : <Icon />}
                       <span>{link.title}</span>
                     </a>
@@ -101,29 +125,6 @@ export function Index({ state, posts }: IndexProps) {
           </div>
         )
         : null}
-      <h2>Posts</h2>
-      <div className="posts">
-        {postIndex.map((
-          { title, pathname, author, publishDate, tags, snippet },
-        ) => (
-          <p>
-            <a href={pathname}>{title} &rarr;</a>
-            <br />
-            <Tags tags={tags} />
-            <small>
-              {(author) &&
-                <span>By {author || ""} at{" "}</span>}
-              <PrettyDate
-                date={publishDate}
-                dateStyle={state.dateStyle}
-                lang={state.lang}
-              />
-            </small>
-            <br />
-            <span>{snippet}</span>
-          </p>
-        ))}
-      </div>
     </div>
   );
 }
@@ -135,7 +136,7 @@ const Tags = ({ tags }: { tags?: string[] }) => {
       {tags.map((tag, index) => (
         <>
           <a key={tag} href={`/?tag=` + tag}>#{tag}</a>
-          {index >= (tags.length - 1) ? null : " "}
+          {index >= (tags.length - 1) ? null : <>{" "}&middot;{" "}</>}
         </>
       ))}
       <br />
@@ -198,8 +199,9 @@ export function PostPage({ post, state }: PostPageProps) {
         lang={state.lang}
       />
       <p>
-        <Tags tags={post.tags} />
         {post.snippet}
+        <br />
+        <Tags tags={post.tags} />
       </p>
     </>
   );

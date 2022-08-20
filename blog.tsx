@@ -25,7 +25,7 @@ import {
   serveDir,
   walk,
 } from "./deps.ts";
-import { Index, PostPage } from "./components.tsx";
+import { Index, NotFound, PostPage } from "./components.tsx";
 import type { ConnInfo, FeedItem } from "./deps.ts";
 import type {
   BlogContext,
@@ -388,7 +388,26 @@ export async function handler(
     }
   }
 
-  return serveDir(req, { fsRoot });
+  const response = await serveDir(req, { fsRoot });
+
+  if (response.status === 404) {
+    return html({
+      ...sharedHtmlOptions,
+      title: "Not Found",
+      meta: {
+        description: "404 - page not found",
+      },
+      links: [
+        { rel: "canonical", href: new URL("/404", canonicalUrl).href },
+      ],
+      styles: [
+        ...(blogState.styles ? blogState.styles : []),
+      ],
+      body: blogState.notFound?.({ req, ctx }) ?? (
+        <NotFound ctx={ctx} req={req} />
+      ),
+    });
+  } else return response;
 }
 
 /** Serves the rss/atom feed of the blog. */

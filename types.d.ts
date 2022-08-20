@@ -77,6 +77,8 @@ export interface BlogSettings {
   hostname?: string;
   /** Additional links inside head */
   headLinks?: HtmlOptions["links"];
+  /** Page to render when nothing is found */
+  notFound?: (props: { req: Request; ctx: BlogContext }) => VNode;
 }
 
 export interface BlogState extends BlogSettings {

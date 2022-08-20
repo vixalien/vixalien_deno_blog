@@ -8,7 +8,7 @@
 /// <reference lib="deno.ns" />
 
 import { ComponentChildren, Fragment, h, marked } from "./deps.ts";
-import type { BlogState, DateStyle, Post } from "./types.d.ts";
+import type { BlogContext, BlogState, DateStyle, Post } from "./types.d.ts";
 
 const socialAppIcons = new Map([
   ["github.com", IconGithub],
@@ -252,6 +252,24 @@ export function PostPage({ post, state }: PostPageProps) {
         </span>
       </div>
     </div>
+  );
+}
+
+interface NotFoundProps {
+  ctx: BlogContext;
+  req: Request;
+}
+
+export function NotFound({ ctx, req: _req }: NotFoundProps) {
+  return (
+    <main className="container">
+      <Header title={ctx.state.title} />
+      <Intro title="404 - page not found" />
+      <p>
+        The page you were trying to reach caught{" "}
+        <b>Coronavirus</b>. You can't see it right now.
+      </p>
+    </main>
   );
 }
 

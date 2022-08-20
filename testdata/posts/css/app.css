@@ -207,6 +207,7 @@ body.overflow-yes .block-image img {
   display: inline-flex;
   gap: 4px;
   align-items: center;
+  vertical-align: text-top;
 }
 
 .intro-meta {

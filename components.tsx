@@ -93,38 +93,46 @@ export function Index({ state, posts }: IndexProps) {
           </p>
         ))}
       </div>
-      {state.links
-        ? (
-          <div>
-            <h2>Contact</h2>
-            <ul>
-              {state.links.map((link) => {
-                const url = new URL(link.url);
-                let Icon = IconExternalLink;
-                if (url.protocol === "mailto:") {
-                  Icon = IconEmail;
-                } else {
-                  const icon = socialAppIcons.get(
-                    url.hostname.replace(/^www\./, ""),
-                  );
-                  if (icon) {
-                    Icon = icon;
-                  }
-                }
+      <div>
+        <h2>Contact & Links</h2>
+        <ul>
+          {state.links && state.links.map((link) => {
+            const url = new URL(link.url, "https://deno.land");
+            let Icon = IconExternalLink;
+            if (url.protocol === "mailto:") {
+              Icon = IconEmail;
+            } else {
+              const icon = socialAppIcons.get(
+                url.hostname.replace(/^www\./, ""),
+              );
+              if (icon) {
+                Icon = icon;
+              }
+            }
 
-                return (
-                  <li key={link.title}>
-                    <a href={link.url} className="link-with-icon">
-                      {link.icon ? link.icon : <Icon />}
-                      <span>{link.title}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )
-        : null}
+            return (
+              <li key={link.title}>
+                <a href={link.url} className="link-with-icon">
+                  {link.icon ? link.icon : <Icon />}
+                  <span>{link.title}</span>
+                </a>
+              </li>
+            );
+          })}
+          <li>
+            <a
+              href="/feed"
+              title="Atom Feed"
+              className="link-with-icon"
+            >
+              <IconRssFeed />
+              <span>RSS</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <br />
+      <div>&copy; {state.author || "Author"} {new Date().getFullYear()}</div>
     </div>
   );
 }
@@ -237,20 +245,8 @@ export function PostPage({ post, state }: PostPageProps) {
             <div>
               <br />
               <span>
-                &copy; {new Date().getFullYear()} {post.author}{" "}
-                &middot; Powered by{" "}
+                &copy; {post.author || state.author} {new Date().getFullYear()}
               </span>
-              <a href="https://deno.land/x/blog">
-                Deno Blog
-              </a>
-              <span>{" "}&middot;{" "}</span>
-              <a
-                href="/feed"
-                title="Atom Feed"
-                className="link-with-icon"
-              >
-                <IconRssFeed /> RSS
-              </a>
             </div>
           )}
         </span>

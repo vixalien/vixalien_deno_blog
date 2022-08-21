@@ -262,8 +262,8 @@ export async function handler(
   ctx: BlogContext,
 ) {
   const { state: blogState } = ctx;
-  const { pathname, searchParams } = new URL(req.url);
-  const canonicalUrl = blogState.canonicalUrl || new URL(req.url).origin;
+  const { pathname, searchParams, origin } = new URL(req.url);
+  const canonicalUrl = new URL(pathname, blogState.canonicalUrl || origin).href;
   const ogImage = typeof blogState.ogImage !== "string"
     ? blogState.ogImage?.url
     : blogState.ogImage;

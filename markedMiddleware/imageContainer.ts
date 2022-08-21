@@ -23,7 +23,7 @@ export const imageContainer: (
           <img src="${href}" alt="${title || text}" loading="lazy">
           ${
             text
-              ? `<div class="text" aria-hidden="true"><small>${text} - <a href="${href}" target="_blank">View Image ↗</a></small></div>`
+              ? `<div class="text"><small>${text} - <a href="${href}" target="_blank" title="${title}">View Image ↗</a></small></div>`
               : ""
           }
         </div>`;

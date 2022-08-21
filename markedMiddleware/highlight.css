@@ -96,7 +96,7 @@ pre:not(.not-code) code {
 .hljs-type,
 .hljs-variable.language_ {
   /* prettylights-syntax-keyword */
-  color: #d73a49;
+  color: #b72634;
 }
 
 .hljs-title,
@@ -138,7 +138,7 @@ pre:not(.not-code) code {
 .hljs-code,
 .hljs-formula {
   /* prettylights-syntax-comment */
-  color: #6a737d;
+  color: #414951;
 }
 
 .hljs-name,
@@ -146,7 +146,7 @@ pre:not(.not-code) code {
 .hljs-selector-tag,
 .hljs-selector-pseudo {
   /* prettylights-syntax-entity-tag */
-  color: #22863a;
+  color: #196c2e;
 }
 
 .hljs-subst {
@@ -245,7 +245,7 @@ pre:not(.not-code) code {
   .hljs-code,
   .hljs-formula {
     /* prettylights-syntax-comment */
-    color: #768390;
+    color: #888c91;
   }
 
   .hljs-name,

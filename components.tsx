@@ -9,7 +9,7 @@
 /// <reference lib="deno.ns" />
 
 import { Fragment, h, JSXNode, marked } from "./deps.ts";
-import type { BlogContext, BlogState, DateStyle, Post } from "./types.d.ts";
+import type { BlogContext, BlogState, DateFormat, Post } from "./types.d.ts";
 
 const socialAppIcons = new Map([
   ["github.com", IconGithub],
@@ -19,12 +19,11 @@ const socialAppIcons = new Map([
 ]);
 
 const Intro = (
-  { title, created, author, lang, dateStyle }: {
+  { title, created, author, dateFormat }: {
     title: JSXNode | string | null;
     created?: Date;
     author?: string;
-    lang?: string;
-    dateStyle?: DateStyle;
+    dateFormat?: DateFormat;
   },
 ) => {
   return (
@@ -34,11 +33,10 @@ const Intro = (
           <>
             <small>
               {author &&
-                <span>By {author || ""} at{" "}</span>}
+                <span>{author || ""} at{" "}</span>}
               <PrettyDate
                 date={created}
-                dateStyle={dateStyle}
-                lang={lang}
+                dateFormat={dateFormat}
               />
             </small>
             <br />
@@ -110,11 +108,10 @@ export function Index({ state, posts }: IndexProps) {
                     <br />
                     <small class="intro-meta">
                       {author &&
-                        <span>By {author || ""} at{" "}</span>}
+                        <span>{author || ""} at{" "}</span>}
                       <PrettyDate
                         date={publishDate}
-                        dateStyle={state.dateStyle}
-                        lang={state.lang}
+                        dateFormat={state.dateFormat}
                       />
                     </small>
                     <br />
@@ -217,7 +214,7 @@ const Header = ({ title }: { title?: string }) => {
   return (
     <header>
       <nav>
-        <a href="/">&larr; {title || "INDEX"}</a>
+        <a href="/">&larr; {title || "Home"}</a>
       </nav>
     </header>
   );
@@ -238,8 +235,7 @@ export function PostPage({ post, state }: PostPageProps) {
         title={post.title}
         created={post.publishDate}
         author={post.author || state.author}
-        dateStyle={state.dateStyle}
-        lang={state.lang}
+        dateFormat={state.dateFormat}
       />
       <p>
         {post.snippet}
@@ -309,13 +305,17 @@ export function NotFound({ ctx, req: _req }: NotFoundProps) {
 }
 
 function PrettyDate(
-  { date, dateStyle, lang }: {
+  { date, dateFormat }: {
     date: Date;
-    dateStyle?: DateStyle;
-    lang?: string;
+    dateFormat?: DateFormat;
   },
 ) {
-  const formatted = date.toLocaleDateString(lang ?? "en-US", { dateStyle });
+  let formatted;
+  if (dateFormat) {
+    formatted = dateFormat(date);
+  } else {
+    formatted = date.toISOString().split("T")[0];
+  }
   return <time dateTime={date.toISOString()}>{formatted}</time>;
 }
 

@@ -47,8 +47,8 @@ export interface BlogSettings {
   header?: JSX.Element;
   /** Whether to show the header on post pages */
   showHeaderOnPostPage?: boolean;
-  /** The element to use as section */
-  section?: JSX.Element;
+  /** The element to use as section. Access to Post props. */
+  section?: (post: Post) => JSX.Element;
   /** The element to use as footer */
   footer?: JSX.Element;
   /** Custom CSS */

@@ -269,6 +269,7 @@ export function PostPage({ post, state }: PostPageProps) {
           : null}
         <br />
         <article dangerouslySetInnerHTML={{ __html: html }} />
+        {state.section && <>{state.section(post)}<br /></>}
         <hr />
         <br />
         <span>

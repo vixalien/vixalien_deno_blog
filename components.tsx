@@ -239,6 +239,7 @@ export function PostPage({ post, state }: PostPageProps) {
       />
       <p>
         {post.snippet}
+        {state.readtime && <span><br />{post.readTime} min read.</span>}
         <br />
         <Tags tags={post.tags} />
       </p>

@@ -81,6 +81,8 @@ export interface BlogSettings {
   headLinks?: HtmlOptions["links"];
   /** Page to render when nothing is found */
   notFound?: (props: { req: Request; ctx: BlogContext }) => JSX.Element;
+  /** Whether to display readtime or not */
+  readtime?: boolean;
 }
 
 export interface BlogState extends BlogSettings {
@@ -100,4 +102,5 @@ export interface Post {
   ogImage?: string;
   invert: boolean;
   tags?: string[];
+  readTime: number;
 }

@@ -251,7 +251,7 @@ export function PostPage({ post, state }: PostPageProps) {
             </div>
           )}
         </span>
-      </div>
+      </main>
     </div>
   );
 }

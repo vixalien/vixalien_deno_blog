@@ -1,3 +1,4 @@
+
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
 /** @jsx h */
@@ -225,7 +226,7 @@ export function PostPage({ post, state }: PostPageProps) {
           />
         )
         : null}
-      <div className="container">
+      <main id="main" className="container">
         {!post.ogImage
           ? (
             <>

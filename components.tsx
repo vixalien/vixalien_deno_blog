@@ -1,4 +1,3 @@
-
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
 /** @jsx h */
@@ -154,13 +153,14 @@ const Tags = ({ tags }: { tags?: string[] }) => {
 };
 
 const ImageContainer = (
-  { top, bottom, image }: {
+  { top, bottom, image, invert }: {
     top: ComponentChildren;
     bottom: ComponentChildren;
     image: string;
+    invert: boolean;
   },
 ) => (
-  <div className="image-container">
+  <div className={`image-container` + (invert ? " invert" : "")}>
     <div className="inner-container container">
       <div className="top">{top}</div>
       <picture>
@@ -223,6 +223,7 @@ export function PostPage({ post, state }: PostPageProps) {
             top={<Header title={state.title} />}
             image={post.ogImage}
             bottom={<Info />}
+            invert={post.invert}
           />
         )
         : null}

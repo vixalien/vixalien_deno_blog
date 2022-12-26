@@ -251,6 +251,7 @@ async function loadPost(postsDirectory: string, path: string) {
     markdown: content,
     coverHtml: data.get("cover_html"),
     ogImage: data.get("og:image"),
+    invert: Boolean(data.get("invert")),
     tags: [data.get("tags")].flat().filter((tag) => !!tag) as string[],
   };
   POSTS.set(pathname, post);

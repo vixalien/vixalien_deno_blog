@@ -96,5 +96,6 @@ export interface Post {
   coverHtml?: string;
   /** An image URL which is used in the OpenGraph og:image tag. */
   ogImage?: string;
+  invert: boolean;
   tags?: string[];
 }

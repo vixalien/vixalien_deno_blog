@@ -376,7 +376,7 @@ export async function handler(
     });
   }
 
-  const post = POSTS.get(pathname);
+  const post = POSTS.get(decodeURIComponent(pathname));
   if (post) {
     // Check for an Accept: text/plain header
     if (

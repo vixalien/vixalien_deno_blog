@@ -112,7 +112,7 @@ export function Index({ state, posts }: IndexProps) {
 
             return (
               <li key={link.title}>
-                <a href={link.url} className="link-with-icon">
+                <a href={link.url} className="link-with-icon" rel={link.rel}>
                   {link.icon ? link.icon : <Icon />}
                   <span>{link.title}</span>
                 </a>

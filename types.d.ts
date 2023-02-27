@@ -40,6 +40,8 @@ export interface BlogSettings {
     icon?: VNode;
     /** The link target */
     target?: "_self" | "_blank" | "_parent" | "_top";
+    /** Rel */
+    rel?: string;
   }[];
   /** The element ot use as header */
   header?: VNode;

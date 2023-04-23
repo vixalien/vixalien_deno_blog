@@ -533,7 +533,9 @@ export function redirects(redirectMap: Record<string, string>): BlogMiddleware {
     }
 
     if (maybeRedirect) {
-      if (!maybeRedirect.startsWith("/")) {
+      if (
+        !maybeRedirect.startsWith("/") && !(maybeRedirect.startsWith("http"))
+      ) {
         maybeRedirect = "/" + maybeRedirect;
       }
 

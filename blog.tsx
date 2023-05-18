@@ -27,6 +27,7 @@ import {
   serveDir,
   walk,
 } from "./deps.ts";
+import { pooledMap } from "https://deno.land/std@0.192.0/async/pool.ts";
 import { Index, NotFound, PostPage } from "./components.tsx";
 import type { ConnInfo, FeedItem } from "./deps.ts";
 import type {
@@ -36,6 +37,7 @@ import type {
   BlogState,
   Post,
 } from "./types.d.ts";
+import { WalkEntry } from "https://deno.land/std@0.192.0/fs/walk.ts";
 
 export { imageContainer } from "./markedMiddleware/imageContainer.ts";
 export { highlight } from "./markedMiddleware/highlight.ts";
@@ -196,13 +198,21 @@ async function loadContent(blogDirectory: string, isDev: boolean) {
   // Read posts from the current directory and store them in memory.
   const postsDirectory = join(blogDirectory, "posts");
 
-  // TODO(@satyarohith): not efficient for large number of posts.
-  for await (
-    const entry of walk(postsDirectory)
-  ) {
+  const traversal: WalkEntry[] = [];
+  for await (const entry of walk(postsDirectory)) {
     if (entry.isFile && entry.path.endsWith(".md")) {
-      await loadPost(postsDirectory, entry.path);
+      traversal.push(entry);
     }
+  }
+
+  const pool = pooledMap(
+    25,
+    traversal,
+    (entry) => loadPost(postsDirectory, entry.path),
+  );
+
+  for await (const _ of pool) {
+    // noop
   }
 
   if (isDev) {

@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
 /** @jsx h */
@@ -7,7 +8,7 @@
 /// <reference lib="dom.asynciterable" />
 /// <reference lib="deno.ns" />
 
-import { ComponentChildren, Fragment, h, marked } from "./deps.ts";
+import { Fragment, h, JSXNode, marked } from "./deps.ts";
 import type { BlogContext, BlogState, DateStyle, Post } from "./types.d.ts";
 
 const socialAppIcons = new Map([
@@ -17,9 +18,10 @@ const socialAppIcons = new Map([
   ["linkedin.com", IconLinkedin],
 ]);
 
+
 const Intro = (
   { title, created, author, lang, dateStyle }: {
-    title: ComponentChildren;
+    title: JSXNode | string | null;
     created?: Date;
     author?: string;
     lang?: string;
@@ -27,7 +29,7 @@ const Intro = (
   },
 ) => {
   return (
-    <div className="intro">
+    <div class="intro">
       {created
         ? (
           <>
@@ -64,13 +66,13 @@ export function Index({ state, posts }: IndexProps) {
   );
 
   return (
-    <div className="container">
-      <Intro title={state.title} />
-      <div className="welcome">
+    <div class="container">
+      <Intro title={state.title ?? null} />
+      <div class="welcome">
         <p>{state.description}</p>
       </div>
       <h2>Posts</h2>
-      <div className="posts">
+      <div class="posts">
         {postIndex.map((
           { title, pathname, author, publishDate, tags, snippet },
         ) => (
@@ -112,7 +114,7 @@ export function Index({ state, posts }: IndexProps) {
 
             return (
               <li key={link.title}>
-                <a href={link.url} className="link-with-icon" rel={link.rel}>
+                <a href={link.url} class="link-with-icon" rel={link.rel}>
                   {link.icon ? link.icon : <Icon />}
                   <span>{link.title}</span>
                 </a>
@@ -123,7 +125,7 @@ export function Index({ state, posts }: IndexProps) {
             <a
               href="/feed"
               title="Atom Feed"
-              className="link-with-icon"
+              class="link-with-icon"
             >
               <IconRssFeed />
               <span>RSS</span>
@@ -140,10 +142,10 @@ export function Index({ state, posts }: IndexProps) {
 const Tags = ({ tags }: { tags?: string[] }) => {
   if (!tags || tags.length <= 0) return null;
   return (
-    <small className="tags">
+    <small class="tags">
       {tags.map((tag, index) => (
         <>
-          <a key={tag} href={`/?tag=` + tag} className="tags">#{tag}</a>
+          <a key={tag} href={`/?tag=` + tag} class="tags">#{tag}</a>
           {index >= (tags.length - 1) ? null : <>{" "}&middot;{" "}</>}
         </>
       ))}
@@ -154,23 +156,23 @@ const Tags = ({ tags }: { tags?: string[] }) => {
 
 const ImageContainer = (
   { top, bottom, image, invert }: {
-    top: ComponentChildren;
-    bottom: ComponentChildren;
+    top: any;
+    bottom: any;
     image: string;
     invert: boolean;
   },
 ) => (
-  <div className={`image-container` + (invert ? " invert" : "")}>
-    <div className="inner-container container">
-      <div className="top">{top}</div>
+  <div class={`image-container` + (invert ? " invert" : "")}>
+    <div class="inner-container container">
+      <div class="top">{top}</div>
       <picture>
         <img src={image} aria-hidden alt="Banner Image for post" />
       </picture>
-      <div className="bottom">
+      <div class="bottom">
         {bottom}
-        <div className="stack">
+        <div class="stack">
           <p>
-            <a href="#main" className="read-link">&darr; Read</a>
+            <a href="#main" class="read-link">&darr; Read</a>
           </p>
           <hr />
         </div>
@@ -227,7 +229,7 @@ export function PostPage({ post, state }: PostPageProps) {
           />
         )
         : null}
-      <main id="main" className="container">
+      <main id="main" class="container">
         {!post.ogImage
           ? (
             <>
@@ -242,7 +244,7 @@ export function PostPage({ post, state }: PostPageProps) {
         <hr />
         <br />
         <span>
-          <a className="top" href="#top">↑ Scroll to Top</a>{" "}
+          <a class="top" href="#top">↑ Scroll to Top</a>{" "}
           {state.footer || (
             <div>
               <br />
@@ -264,7 +266,7 @@ interface NotFoundProps {
 
 export function NotFound({ ctx, req: _req }: NotFoundProps) {
   return (
-    <main className="container">
+    <main class="container">
       <Header title={ctx.state.title} />
       <Intro title="404 - page not found" />
       <p>
@@ -305,7 +307,7 @@ function IconRssFeed() {
 function IconEmail() {
   return (
     <svg
-      className="inline-block w-5 h-5"
+      class="inline-block w-5 h-5"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -323,7 +325,7 @@ function IconEmail() {
 function IconExternalLink() {
   return (
     <svg
-      className="inline-block w-5 h-5"
+      class="inline-block w-5 h-5"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +343,7 @@ function IconExternalLink() {
 function IconGithub() {
   return (
     <svg
-      className="inline-block w-5 h-5"
+      class="inline-block w-5 h-5"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -359,7 +361,7 @@ function IconGithub() {
 function IconTwitter() {
   return (
     <svg
-      className="inline-block w-5 h-5"
+      class="inline-block w-5 h-5"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -377,7 +379,7 @@ function IconTwitter() {
 function IconInstagram() {
   return (
     <svg
-      className="inline-block w-5 h-5"
+      class="inline-block w-5 h-5"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -395,7 +397,7 @@ function IconInstagram() {
 function IconLinkedin() {
   return (
     <svg
-      className="inline-block w-5 h-5"
+      class="inline-block w-5 h-5"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

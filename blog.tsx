@@ -241,7 +241,7 @@ async function loadPost(postsDirectory: string, path: string) {
   }
 
   const post: Post = {
-    title: data.get("title") ?? "Untitled",
+    title: (data.get("title") ?? "Untitled").toString(),
     author: data.get("author"),
     // Note: users can override path of a blog post using
     // pathname in front matter.
@@ -297,7 +297,6 @@ export async function handler(
   }
 
   const sharedHtmlOptions: HtmlOptions = {
-    colorScheme: blogState.theme ?? undefined,
     lang: blogState.lang ?? "en",
     scripts: IS_DEV ? [{ src: "/hmr.js" }] : undefined,
     links: [
@@ -431,7 +430,7 @@ function serveRSS(
     copyright: copyright,
     generator: "Feed (https://github.com/jpmonette/feed) for Deno",
     feedLinks: {
-      atom: `${origin}/feed`,
+      rss: `${origin}/rss`,
     },
   });
 
@@ -442,20 +441,23 @@ function serveRSS(
       description: post.snippet,
       date: post.publishDate,
       link: `${origin}${post.pathname}`,
-      author: post.author?.split(",").map((author: string) => ({
+      author: (post.author ?? state.author ?? state.title ?? "Author")?.split(
+        ",",
+      ).map((author: string) => ({
         name: author.trim(),
       })),
-      image: post.ogImage,
+      image: post.ogImage ? new URL(post.ogImage, origin).href : undefined,
       copyright,
       published: post.publishDate,
     };
+
     feed.addItem(item);
   }
 
-  const atomFeed = feed.atom1();
-  return new Response(atomFeed, {
+  const rssFeed = feed.rss2();
+  return new Response(rssFeed, {
     headers: {
-      "content-type": "application/atom+xml; charset=utf-8",
+      "content-type": "application/rss+xml; charset=utf-8",
     },
   });
 }

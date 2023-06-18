@@ -1,29 +1,29 @@
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
-export { serveDir } from "https://deno.land/std@0.149.0/http/file_server.ts";
-export { walk } from "https://deno.land/std@0.149.0/fs/walk.ts";
+export { serveDir } from "https://deno.land/std@0.192.0/http/file_server.ts";
+export { walk } from "https://deno.land/std@0.192.0/fs/walk.ts";
 export {
   dirname,
   fromFileUrl,
   join,
   relative,
   resolve,
-} from "https://deno.land/std@0.149.0/path/mod.ts";
+} from "https://deno.land/std@0.192.0/path/mod.ts";
 export {
   type ConnInfo,
   serve,
-} from "https://deno.land/std@0.149.0/http/mod.ts";
-export { extract as frontMatter } from "https://deno.land/std@0.149.0/encoding/front_matter.ts";
+} from "https://deno.land/std@0.192.0/http/mod.ts";
+export { extract as frontMatter } from "https://deno.land/std@0.192.0/front_matter/any.ts";
 
-export { marked } from "https://esm.sh/marked@4.0.18";
+export { marked } from "https://esm.sh/marked@5.1.0";
 export {
-  type ComponentChildren,
+  type FC,
   Fragment,
   h,
-  html,
+  default as html,
   type HtmlOptions,
-  type VNode,
-} from "https://deno.land/x/htm@0.0.10/mod.tsx";
+  type JSXNode
+} from "https://deno.land/x/htm@0.2.1/mod.ts";
 export {
   createReporter,
   type Reporter as GaReporter,

@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "demo": "deno run  --allow-net --allow-read --allow-env=NODE_DEBUG --watch --no-check testdata/my_blog.ts --dev",
+    "demo": "deno run  --allow-net --allow-read --allow-env=NODE_DEBUG --watch --no-check testdata/my_blog.tsx --dev",
     "test": "deno test --no-check=remote --allow-read"
   }
 }

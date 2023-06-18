@@ -1,6 +1,6 @@
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
-import type { ConnInfo, HtmlOptions, marked, VNode } from "./deps.ts";
+import type { ConnInfo, HtmlOptions, marked } from "./deps.ts";
 
 export interface BlogContext {
   state: BlogState;
@@ -37,20 +37,20 @@ export interface BlogSettings {
     /** The link */
     url: string;
     /** The element to use as the icon of the link */
-    icon?: VNode;
+    icon?: JSX.Element;
     /** The link target */
     target?: "_self" | "_blank" | "_parent" | "_top";
     /** Rel */
     rel?: string;
   }[];
   /** The element ot use as header */
-  header?: VNode;
+  header?: JSX.Element;
   /** Whether to show the header on post pages */
   showHeaderOnPostPage?: boolean;
   /** The element to use as section */
-  section?: VNode;
+  section?: JSX.Element;
   /** The element to use as footer */
-  footer?: VNode;
+  footer?: JSX.Element;
   /** Custom CSS */
   styles?: string[];
   /** URL to open graph image. Can be relative. */
@@ -80,7 +80,7 @@ export interface BlogSettings {
   /** Additional links inside head */
   headLinks?: HtmlOptions["links"];
   /** Page to render when nothing is found */
-  notFound?: (props: { req: Request; ctx: BlogContext }) => VNode;
+  notFound?: (props: { req: Request; ctx: BlogContext }) => JSX.Element;
 }
 
 export interface BlogState extends BlogSettings {

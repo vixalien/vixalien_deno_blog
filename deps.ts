@@ -17,12 +17,12 @@ export { extract as frontMatter } from "https://deno.land/std@0.192.0/front_matt
 
 export { marked } from "https://esm.sh/marked@5.1.0";
 export {
+  default as html,
   type FC,
   Fragment,
   h,
-  default as html,
   type HtmlOptions,
-  type JSXNode
+  type JSXNode,
 } from "https://deno.land/x/htm@0.2.1/mod.ts";
 export {
   createReporter,
@@ -31,3 +31,4 @@ export {
 export { default as callsites } from "https://raw.githubusercontent.com/kt3k/callsites/v1.0.0/mod.ts";
 export { Feed, type Item as FeedItem } from "https://esm.sh/feed@4.2.2";
 export { default as removeMarkdown } from "https://esm.sh/remove-markdown@0.5.0";
+export { cache } from "https://deno.land/x/cache@0.2.13/mod.ts";

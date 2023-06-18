@@ -1,4 +1,4 @@
-import { dirname, fromFileUrl, resolve } from "../deps.ts";
+import { cache, dirname, fromFileUrl, resolve } from "../deps.ts";
 
 export const load = (path: string) => {
   const base = import.meta.url;
@@ -9,6 +9,8 @@ export const load = (path: string) => {
       resolve(dirname(fromFileUrl(base)), path),
     );
   } else {
-    return fetch(new URL(path, base)).then((response) => response.text());
+    return cache(new URL(path, base)).then((file) =>
+      Deno.readTextFile(file.path)
+    );
   }
 };

@@ -9,8 +9,11 @@ export const load = (path: string) => {
       resolve(dirname(fromFileUrl(base)), path),
     );
   } else {
-    return cache(new URL(path, base)).then((file) =>
-      Deno.readTextFile(file.path)
-    );
+    return cache(new URL(path, base))
+      .then((file) => Deno.readTextFile(file.path))
+      .catch(() => {
+        return fetch(new URL(path, base))
+          .then((response) => response.text());
+      });
   }
 };

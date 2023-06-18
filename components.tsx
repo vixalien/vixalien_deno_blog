@@ -143,7 +143,7 @@ const Tags = ({ tags }: { tags?: string[] }) => {
     <small className="tags">
       {tags.map((tag, index) => (
         <>
-          <a key={tag} href={`/?tag=` + tag}>#{tag}</a>
+          <a key={tag} href={`/?tag=` + tag} className="tags">#{tag}</a>
           {index >= (tags.length - 1) ? null : <>{" "}&middot;{" "}</>}
         </>
       ))}

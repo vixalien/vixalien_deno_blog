@@ -1,17 +1,19 @@
 // Copyright 2022 the Deno authors. All rights reserved. MIT license.
 
-import type { ConnInfo, HtmlOptions, marked } from "./deps.ts";
+import type { ConnInfo, HtmlOptions, Marked } from "./deps.ts";
 
 export interface BlogContext {
+  __marked?: Marked;
   state: BlogState;
   connInfo: ConnInfo;
-  marked: typeof marked;
   next: () => Promise<Response>;
+  get marked(): Marked;
 }
 
-export interface BlogMiddleware {
-  (req: Request, ctx: BlogContext): Promise<Response>;
-}
+export type BlogMiddleware = (
+  req: Request,
+  ctx: BlogContext,
+) => Promise<Response>;
 
 type DateFormat = (date: Date) => string;
 
@@ -103,4 +105,5 @@ export interface Post {
   invert: boolean;
   tags?: string[];
   readTime: number;
+  renderMath?: boolean;
 }

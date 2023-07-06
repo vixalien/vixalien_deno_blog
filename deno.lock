@@ -12,6 +12,7 @@
     }
   },
   "redirects": {
+    "https://esm.sh/v133/@types/katex@~0.16/index.d.ts": "https://esm.sh/v133/@types/katex@0.16.3/index.d.ts",
     "https://esm.sh/v133/@types/marked@^5/index.d.ts": "https://esm.sh/v133/@types/marked@5.0.2/index.d.ts",
     "https://esm.sh/v133/@types/remove-markdown@^0/index.d.ts": "https://esm.sh/v133/@types/remove-markdown@0.3.2/index.d.ts"
   },
@@ -216,13 +217,17 @@
     "https://deno.land/x/oak@v10.1.0/util.ts": "0030f8e9d957533e2fe9c89927eadb6e90c7b28ded05a25f14fd1edd6eb67469",
     "https://deno.land/x/path_to_regexp@v6.2.0/index.ts": "e94c04a44bbecac99ff2db2d831afe98b423e627b775cb57fc7935f848c64c51",
     "https://esm.sh/feed@4.2.2": "c9a2468b1fb6176594a98398fa79ee2bc35cced764ec1a5f0dd4132149b0fd92",
+    "https://esm.sh/katex@0.16.9": "0b0627630bcb645b8e0dc65f88143b7ac521e9ca9f0d20b78e75893620d03b7a",
     "https://esm.sh/marked-gfm-heading-id@3.1.0": "e038f2f4560fb0658362921ec42df8f338629c8ae167aff2d84fd565c13c5b5e",
+    "https://esm.sh/marked-katex-extension@4.0.2": "a004f5e4024cb26e3d1c241a5f7c1ad2a9e5c61c04ead35f8f05b3b74773c26a",
     "https://esm.sh/marked-mangle@1.1.4": "903e392d0781901df7c00427de3574c2413f9f9124054d581a53fd2fce016e98",
     "https://esm.sh/marked@5.1.0": "a0200ba6d964aae9c665a939bfaca369a126b2377abea858779ebcd27f8dd11f",
     "https://esm.sh/remove-markdown@0.5.0": "0b2e976e9e1bb4c55b00a8b8b58e6fee0ffb0156626d93d0fdff52582bc2b5d9",
     "https://esm.sh/v133/feed@4.2.2/denonext/feed.mjs": "294ef6141e105b6bebafb8b20ec657d0a4fc9de4b662efd00007062eb340e1f0",
     "https://esm.sh/v133/github-slugger@2.0.0/denonext/github-slugger.mjs": "42ff6fe7ba4f63d8a048970e5a32cd5b0348905dde3f9e270d90e44a6e7635ae",
+    "https://esm.sh/v133/katex@0.16.9/denonext/katex.mjs": "fa40d040deb76b680235d49bc608401688576cf6f745ed5cdc8b0bd1d47fad93",
     "https://esm.sh/v133/marked-gfm-heading-id@3.1.0/denonext/marked-gfm-heading-id.mjs": "d8f54729e3bb6a0c293c4209b8b2dce5da95bb24572f12e17e8eab28d1c3d483",
+    "https://esm.sh/v133/marked-katex-extension@4.0.2/denonext/marked-katex-extension.mjs": "ffca738460f5c3fae97f683c612b8f1f53f0abd07409c4b090b4c9192ccd84e5",
     "https://esm.sh/v133/marked-mangle@1.1.4/denonext/marked-mangle.mjs": "64d9d522e76456ad4d3a166761ef29f01e7826e289a8a14c66290044c95bfc05",
     "https://esm.sh/v133/marked@5.1.0/denonext/marked.mjs": "246354e3911a238fd24ea38dcf51564e0878c7052b0ee8575061fc27792fa0d4",
     "https://esm.sh/v133/remove-markdown@0.5.0/denonext/remove-markdown.mjs": "abcc5cbc5f9dbee0bb06776b5a84f7c3bb65bc9b4454b3991f6964fbecd403c2",

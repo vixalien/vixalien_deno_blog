@@ -8,7 +8,8 @@
 /// <reference lib="dom.asynciterable" />
 /// <reference lib="deno.ns" />
 
-import { Fragment, h, JSXNode, marked } from "./deps.ts";
+import { renderMarkdown } from "./blog.tsx";
+import { Fragment, h, JSXNode } from "./deps.ts";
 import type { BlogContext, BlogState, DateFormat, Post } from "./types.d.ts";
 
 const socialAppIcons = new Map([
@@ -222,13 +223,13 @@ const Header = ({ title }: { title?: string }) => {
 };
 
 interface PostPageProps {
-  state: BlogState;
+  context: BlogContext;
   post: Post;
 }
 
-export function PostPage({ post, state }: PostPageProps) {
-  // const html = gfm.render(post.markdown);
-  const html = marked(post.markdown);
+export function PostPage({ post, context }: PostPageProps) {
+  const state = context.state;
+  const html = renderMarkdown(context, post)
 
   const Info = () => (
     <>

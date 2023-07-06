@@ -1,6 +1,6 @@
 ---
 title: Fifth post
-pathname: "/fifth"
+pathname: "/fifths"
 publish_date: 2022-05-02
 abstract: This is the fifth post.
 ---

@@ -20,7 +20,7 @@ import {
   HtmlOptions,
   join,
   mangle,
-  marked,
+  Marked,
   relative,
   removeMarkdown,
   serve,
@@ -29,7 +29,7 @@ import {
 } from "./deps.ts";
 import { pooledMap } from "https://deno.land/std@0.192.0/async/pool.ts";
 import { Index, NotFound, PostPage } from "./components.tsx";
-import type { ConnInfo, FeedItem } from "./deps.ts";
+import type { ConnInfo, FeedItem, marked } from "./deps.ts";
 import type {
   BlogContext,
   BlogMiddleware,
@@ -38,6 +38,7 @@ import type {
   Post,
 } from "./types.d.ts";
 import { WalkEntry } from "https://deno.land/std@0.192.0/fs/walk.ts";
+import { MATH_STYLE_URI, renderMath } from "./markedMiddleware/math.ts";
 
 export { imageContainer } from "./markedMiddleware/imageContainer.ts";
 export { highlight } from "./markedMiddleware/highlight.ts";
@@ -139,21 +140,35 @@ function composeMiddlewares(state: BlogState) {
     connInfo: ConnInfo,
     inner: (req: Request, ctx: BlogContext) => Promise<Response>,
   ) => {
-    const mws = state.middlewares?.slice().reverse();
+    const reset_marked: BlogMiddleware = (_req, ctx) => {
+      ctx.__marked = undefined;
+
+      return ctx.next()
+    }
+
+    const mws = [reset_marked, ...(state.middlewares ?? [])]?.slice().reverse();
 
     const handlers: (() => Response | Promise<Response>)[] = [];
 
-    marked.use(gfmHeadingId() as marked.MarkedExtension);
-    marked.use(mangle() as marked.MarkedExtension);
 
-    const ctx = {
+    const ctx: BlogContext = {
       next() {
         const handler = handlers.shift()!;
         return Promise.resolve(handler());
       },
       connInfo,
       state,
-      marked,
+      get marked() {
+        if (this.__marked) {
+          return this.__marked;
+        }
+
+        const marked = new Marked()
+        marked.use(gfmHeadingId() as marked.MarkedExtension);
+        marked.use(mangle() as marked.MarkedExtension);
+
+        return this.__marked = marked;
+      }
     };
 
     if (mws) {
@@ -287,6 +302,7 @@ async function loadPost(postsDirectory: string, path: string) {
     invert: Boolean(data.get("invert")),
     tags: [data.get("tags")].flat().filter((tag) => !!tag) as string[],
     readTime: readingTime(content),
+    renderMath: data.get("render_math"),
   };
   POSTS.set(pathname, post);
 }
@@ -306,7 +322,7 @@ export async function handler(
     : "summary_large_image";
 
   if (pathname === "/feed") {
-    return serveRSS(req, blogState, POSTS);
+    return serveRSS(req, ctx, POSTS);
   }
 
   if (IS_DEV) {
@@ -412,7 +428,11 @@ export async function handler(
       styles: [
         ...(blogState.styles ? blogState.styles : []),
       ],
-      body: <PostPage post={post} state={blogState} />,
+      links: [
+        ...(sharedHtmlOptions.links ?? []),
+        ...(post.renderMath ? [{ href: MATH_STYLE_URI, rel: "stylesheet" }] : [])
+      ],
+      body: <PostPage post={post} context={ctx} />,
     });
   }
 
@@ -451,9 +471,10 @@ export async function handler(
 /** Serves the rss/atom feed of the blog. */
 function serveRSS(
   req: Request,
-  state: BlogState,
+  ctx: BlogContext,
   posts: Map<string, Post>,
 ): Response {
+  const state = ctx.state
   const url = state.canonicalUrl
     ? new URL(state.canonicalUrl)
     : new URL(req.url);
@@ -488,7 +509,7 @@ function serveRSS(
       image: post.ogImage ? new URL(post.ogImage, origin).href : undefined,
       copyright,
       published: post.publishDate,
-      content: marked(post.markdown)
+      content: renderMarkdown(ctx, post)
     };
 
     feed.addItem(item);
@@ -594,4 +615,12 @@ function readingTime(text: string) {
   const wpm = 225;
   const words = text.split(/\s+/).length;
   return Math.ceil(words / wpm);
+}
+
+export function renderMarkdown(ctx: BlogContext, post: Post) {
+  if (post.renderMath) {
+    ctx.marked.use(...renderMath())
+  }
+
+  return ctx.marked.parse(post.markdown)
 }

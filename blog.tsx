@@ -27,7 +27,7 @@ import {
   serveDir,
   walk,
 } from "./deps.ts";
-import { pooledMap } from "https://deno.land/std@0.192.0/async/pool.ts";
+import { pooledMap } from "https://deno.land/std@0.193.0/async/pool.ts";
 import { Index, NotFound, PostPage } from "./components.tsx";
 import type { ConnInfo, FeedItem, marked } from "./deps.ts";
 import type {
@@ -37,7 +37,7 @@ import type {
   BlogState,
   Post,
 } from "./types.d.ts";
-import { WalkEntry } from "https://deno.land/std@0.192.0/fs/walk.ts";
+import { WalkEntry } from "https://deno.land/std@0.193.0/fs/walk.ts";
 import { MATH_STYLE_URI, renderMath } from "./markedMiddleware/math.ts";
 
 export { imageContainer } from "./markedMiddleware/imageContainer.ts";

@@ -18,7 +18,6 @@ const socialAppIcons = new Map([
   ["linkedin.com", IconLinkedin],
 ]);
 
-
 const Intro = (
   { title, created, author, lang, dateStyle }: {
     title: JSXNode | string | null;
@@ -34,7 +33,7 @@ const Intro = (
         ? (
           <>
             <small>
-              {(author) &&
+              {author &&
                 <span>By {author || ""} at{" "}</span>}
               <PrettyDate
                 date={created}
@@ -74,13 +73,22 @@ export function Index({ state, posts }: IndexProps) {
       <h2>Posts</h2>
       <div class="posts">
         {postIndex.map((
-          { title, pathname, author, publishDate, tags, snippet },
+          { title, pathname, author, publishDate, tags, snippet, ogImage },
         ) => (
           <p>
-            <a href={pathname}>{title} &rarr;</a>
+            {ogImage
+              ? (
+                <a href={pathname} class="post-image">
+                  <img src={ogImage} />
+                </a>
+              )
+              : null}
+            <a href={pathname} class="post-title">
+              <span>{title} &rarr;</span>
+            </a>
             <br />
             <small class="intro-meta">
-              {(author) &&
+              {author &&
                 <span>By {author || ""} at{" "}</span>}
               <PrettyDate
                 date={publishDate}
@@ -244,8 +252,7 @@ export function PostPage({ post, state }: PostPageProps) {
         <hr />
         <br />
         <span>
-          <a class="top" href="#top">↑ Scroll to Top</a>{" "}
-          {state.footer || (
+          <a class="top" href="#top">↑ Scroll to Top</a> {state.footer || (
             <div>
               <br />
               <span>

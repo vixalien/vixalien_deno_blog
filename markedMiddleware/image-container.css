@@ -78,7 +78,6 @@
     color: var(--text);
     box-shadow: 0 0 100px 100px var(--background-color);
     background-color: var(--background-color);
-    font-weight: bold;
   }
 
   .image-container .read-link {

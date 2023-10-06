@@ -72,36 +72,60 @@ export function Index({ state, posts }: IndexProps) {
       </div>
       <h2>Posts</h2>
       <div class="posts">
-        {postIndex.map((
-          { title, pathname, author, publishDate, tags, snippet, ogImage },
-        ) => (
-          <p>
-            {ogImage
-              ? (
-                <a href={pathname} class="post-image">
-                  <img src={ogImage} />
-                </a>
-              )
-              : null}
-            <a href={pathname} class="post-title">
-              <span>{title} &rarr;</span>
-            </a>
-            <br />
-            <small class="intro-meta">
-              {author &&
-                <span>By {author || ""} at{" "}</span>}
-              <PrettyDate
-                date={publishDate}
-                dateStyle={state.dateStyle}
-                lang={state.lang}
-              />
-            </small>
-            <br />
-            <span>{snippet}</span>
-            <br />
-            <Tags tags={tags} />
-          </p>
-        ))}
+        {Object.entries(postIndex.reduce((acc, post) => {
+          const year = post.publishDate.getFullYear().toString();
+          acc[year] ??= [];
+          acc[year].push(post);
+          return acc;
+        }, {} as Record<string, Post[]>))
+          .sort(([year1], [year2]) => year2.localeCompare(year1))
+          .map(([year, posts]) => {
+            if (!posts) return null;
+
+            return (
+              <>
+                <h3>{year}</h3>
+                {posts.map((
+                  {
+                    title,
+                    pathname,
+                    author,
+                    publishDate,
+                    tags,
+                    snippet,
+                    ogImage,
+                  },
+                ) => (
+                  <p>
+                    {ogImage
+                      ? (
+                        <a href={pathname} class="post-image">
+                          <img src={ogImage} />
+                        </a>
+                      )
+                      : null}
+                    <a href={pathname} class="post-title">
+                      <span>{title} &rarr;</span>
+                    </a>
+                    <br />
+                    <small class="intro-meta">
+                      {author &&
+                        <span>By {author || ""} at{" "}</span>}
+                      <PrettyDate
+                        date={publishDate}
+                        dateStyle={state.dateStyle}
+                        lang={state.lang}
+                      />
+                    </small>
+                    <br />
+                    <span>{snippet}</span>
+                    <br />
+                    <Tags tags={tags} />
+                  </p>
+                ))}
+              </>
+            );
+          })}
       </div>
       <div>
         <h2>Contact & Links</h2>

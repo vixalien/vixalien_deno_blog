@@ -14,10 +14,12 @@ import {
   Fragment,
   fromFileUrl,
   frontMatter,
+  gfmHeadingId,
   h,
   html,
   HtmlOptions,
   join,
+  mangle,
   marked,
   relative,
   removeMarkdown,
@@ -131,6 +133,9 @@ function composeMiddlewares(state: BlogState) {
     const mws = state.middlewares?.reverse();
 
     const handlers: (() => Response | Promise<Response>)[] = [];
+
+    marked.use(gfmHeadingId() as marked.MarkedExtension);
+    marked.use(mangle() as marked.MarkedExtension);
 
     const ctx = {
       next() {

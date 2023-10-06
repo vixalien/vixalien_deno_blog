@@ -16,6 +16,9 @@ export {
 export { extract as frontMatter } from "https://deno.land/std@0.192.0/front_matter/any.ts";
 
 export { marked } from "https://esm.sh/marked@5.1.0";
+export { gfmHeadingId } from "https://esm.sh/marked-gfm-heading-id@3.1.0";
+export { mangle } from "https://esm.sh/marked-mangle@1.1.4";
+
 export {
   default as html,
   type FC,

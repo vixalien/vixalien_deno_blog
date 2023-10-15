@@ -199,7 +199,7 @@ async function loadContent(blogDirectory: string, isDev: boolean) {
   }
 
   if (isDev) {
-    watchForChanges(postsDirectory).catch(() => {});
+    watchForChanges(postsDirectory).catch(() => { });
   }
 }
 
@@ -454,6 +454,7 @@ function serveRSS(
       image: post.ogImage ? new URL(post.ogImage, origin).href : undefined,
       copyright,
       published: post.publishDate,
+      content: marked(post.markdown)
     };
 
     feed.addItem(item);

@@ -21,7 +21,8 @@
 
 .image-container.invert {
   --background-color: rgba(255, 255, 255, 0.13);
-  --text: #000;
+  /* a very weird firefox bug */
+  --text: #001;
 }
 
 @media screen and (max-width: 600px) {
@@ -83,6 +84,7 @@
   .image-container .read-link {
     color: inherit;
     border-bottom-width: 2px;
+    font-weight: bold;
   }
 
   .image-container h1 {

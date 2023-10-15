@@ -200,7 +200,7 @@ const ImageContainer = (
       <picture>
         <img src={image} aria-hidden alt="Banner Image for post" />
       </picture>
-      <div class="bottom">
+      <div class="bottom" id="main">
         {bottom}
         <div class="stack">
           <p>

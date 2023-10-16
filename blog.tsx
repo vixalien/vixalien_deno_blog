@@ -146,7 +146,7 @@ function composeMiddlewares(state: BlogState) {
       return ctx.next();
     };
 
-    const mws = [reset_marked, ...(state.middlewares ?? [])]?.slice().reverse();
+    const mws = [...(state.middlewares ?? []), reset_marked]?.slice().reverse();
 
     const handlers: (() => Response | Promise<Response>)[] = [];
 
@@ -230,7 +230,7 @@ async function loadContent(blogDirectory: string, isDev: boolean) {
   }
 
   if (isDev) {
-    watchForChanges(postsDirectory).catch(() => {});
+    watchForChanges(postsDirectory).catch(() => { });
   }
 }
 

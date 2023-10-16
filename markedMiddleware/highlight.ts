@@ -46,10 +46,10 @@ export const highlight: (
   const css = addCSS ? await load("./highlight.css") : null;
 
   return (_req, ctx) => {
-    if (loaded) return ctx.next();
-
-    if (addCSS && css) {
-      ctx.state.styles = [...(ctx.state.styles || []), css];
+    if (!loaded) {
+      if (addCSS && css) {
+        ctx.state.styles = [...(ctx.state.styles || []), css];
+      }
     }
 
     ctx.marked.use({

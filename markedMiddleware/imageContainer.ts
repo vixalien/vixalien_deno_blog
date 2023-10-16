@@ -10,10 +10,10 @@ export const imageContainer: (
   const css = addCSS ? await load("./image-container.css") : null;
 
   return (_req, ctx) => {
-    if (loaded) return ctx.next();
-
-    if (addCSS && css) {
-      ctx.state.styles = [...(ctx.state.styles || []), css];
+    if (!loaded) {
+      if (addCSS && css) {
+        ctx.state.styles = [...(ctx.state.styles || []), css];
+      }
     }
 
     ctx.marked.use({

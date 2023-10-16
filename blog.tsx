@@ -230,7 +230,7 @@ async function loadContent(blogDirectory: string, isDev: boolean) {
   }
 
   if (isDev) {
-    watchForChanges(postsDirectory).catch(() => { });
+    watchForChanges(postsDirectory).catch(() => {});
   }
 }
 

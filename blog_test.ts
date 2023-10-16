@@ -274,7 +274,7 @@ Deno.test("RSS feed", async () => {
   assertEquals(resp.status, 200);
   assertEquals(
     resp.headers.get("content-type"),
-    "application/atom+xml; charset=utf-8",
+    "application/rss+xml; charset=utf-8",
   );
   const body = await resp.text();
   assertStringIncludes(body, `<title>Test blog</title>`);

@@ -171,16 +171,16 @@ Deno.test("posts/ sixth", async () => {
   const body = await resp.text();
   assertStringIncludes(
     body,
-    `<a class="text-bluegray-500 font-bold" href="/?tag=sample">#sample</a>`,
+    `<a key="sample" href="/?tag=sample" class="tags">#sample</a>`,
   );
   assertStringIncludes(
     body,
-    `<a class="text-bluegray-500 font-bold" href="/?tag=tags">#tags</a>`,
+    `<a key="tags" href="/?tag=tags" class="tags">#tags</a>`,
   );
   assertStringIncludes(body, `<html lang="en-GB">`);
   assertStringIncludes(
     body,
-    `<link rel="canonical" href="https://blog.deno.dev/sixth" />`,
+    `<link rel="canonical" href="https://blog.deno.dev/sixth"/>`,
   );
   assertStringIncludes(body, `Sixth post`);
   assertStringIncludes(body, `<time dateTime="2023-08-17T00:00:00.000Z">`);

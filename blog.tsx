@@ -143,13 +143,12 @@ function composeMiddlewares(state: BlogState) {
     const reset_marked: BlogMiddleware = (_req, ctx) => {
       ctx.__marked = undefined;
 
-      return ctx.next()
-    }
+      return ctx.next();
+    };
 
     const mws = [reset_marked, ...(state.middlewares ?? [])]?.slice().reverse();
 
     const handlers: (() => Response | Promise<Response>)[] = [];
-
 
     const ctx: BlogContext = {
       next() {
@@ -163,12 +162,12 @@ function composeMiddlewares(state: BlogState) {
           return this.__marked;
         }
 
-        const marked = new Marked()
+        const marked = new Marked();
         marked.use(gfmHeadingId() as marked.MarkedExtension);
         marked.use(mangle() as marked.MarkedExtension);
 
         return this.__marked = marked;
-      }
+      },
     };
 
     if (mws) {
@@ -231,7 +230,7 @@ async function loadContent(blogDirectory: string, isDev: boolean) {
   }
 
   if (isDev) {
-    watchForChanges(postsDirectory).catch(() => { });
+    watchForChanges(postsDirectory).catch(() => {});
   }
 }
 
@@ -292,9 +291,7 @@ async function loadPost(postsDirectory: string, path: string) {
     author: data.get("author"),
     pathname,
     // Note: no error when publish_date is wrong or missed
-    publishDate: publishDate instanceof Date
-      ? publishDate!
-      : new Date(),
+    publishDate: publishDate instanceof Date ? publishDate! : new Date(),
     snippet,
     markdown: content,
     coverHtml: data.get("cover_html"),
@@ -440,7 +437,9 @@ export async function handler(
       ],
       links: [
         ...(sharedHtmlOptions.links ?? []),
-        ...(post.renderMath ? [{ href: MATH_STYLE_URI, rel: "stylesheet" }] : [])
+        ...(post.renderMath
+          ? [{ href: MATH_STYLE_URI, rel: "stylesheet" }]
+          : []),
       ],
       body: <PostPage post={post} context={ctx} />,
     });
@@ -484,7 +483,7 @@ function serveRSS(
   ctx: BlogContext,
   posts: Map<string, Post>,
 ): Response {
-  const state = ctx.state
+  const state = ctx.state;
   const url = state.canonicalUrl
     ? new URL(state.canonicalUrl)
     : new URL(req.url);
@@ -519,7 +518,7 @@ function serveRSS(
       image: post.ogImage ? new URL(post.ogImage, origin).href : undefined,
       copyright,
       published: post.publishDate,
-      content: renderMarkdown(ctx, post)
+      content: renderMarkdown(ctx, post),
     };
 
     feed.addItem(item);
@@ -629,8 +628,8 @@ function readingTime(text: string) {
 
 export function renderMarkdown(ctx: BlogContext, post: Post) {
   if (post.renderMath) {
-    ctx.marked.use(...renderMath())
+    ctx.marked.use(...renderMath());
   }
 
-  return ctx.marked.parse(post.markdown)
+  return ctx.marked.parse(post.markdown);
 }

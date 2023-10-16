@@ -229,7 +229,7 @@ interface PostPageProps {
 
 export function PostPage({ post, context }: PostPageProps) {
   const state = context.state;
-  const html = renderMarkdown(context, post)
+  const html = renderMarkdown(context, post);
 
   const Info = () => (
     <>
@@ -241,7 +241,12 @@ export function PostPage({ post, context }: PostPageProps) {
       />
       <p>
         {post.snippet}
-        {state.readtime && <span><br />{post.readTime} min read.</span>}
+        {state.readtime && (
+          <span>
+            <br />
+            {post.readTime} min read.
+          </span>
+        )}
         <br />
         <Tags tags={post.tags} />
       </p>
@@ -272,7 +277,12 @@ export function PostPage({ post, context }: PostPageProps) {
           : null}
         <br />
         <article dangerouslySetInnerHTML={{ __html: html }} />
-        {state.section && <>{state.section(post)}<br /></>}
+        {state.section && (
+          <>
+            {state.section(post)}
+            <br />
+          </>
+        )}
         <hr />
         <br />
         <span>

@@ -69,7 +69,7 @@ Deno.test("posts/ first", async () => {
   assertStringIncludes(body, `<html lang="en-GB">`);
   assertStringIncludes(
     body,
-    `<link rel="canonical" href="https://blog.deno.dev/first" />`,
+    `<link rel="canonical" href="https://blog.deno.dev/first"/>`,
   );
   assertStringIncludes(body, `First post`);
   assertStringIncludes(body, `The author`);

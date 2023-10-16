@@ -170,7 +170,7 @@ export function Index({ state, posts }: IndexProps) {
 }
 
 const Tags = ({ tags }: { tags?: string[] }) => {
-  if (!tags || tags.length <= 0) return null;
+  if (!tags || tags.length <= 0) return <></>;
   return (
     <small class="tags">
       {tags.map((tag, index) => (

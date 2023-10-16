@@ -52,7 +52,7 @@ Deno.test("index page", async () => {
   assertStringIncludes(body, `<html lang="en-GB">`);
   assertStringIncludes(
     body,
-    `<link rel="canonical" href="https://blog.deno.dev/" />`,
+    `<link rel="canonical" href="https://blog.deno.dev/"/>`,
   );
   assertStringIncludes(body, `Test blog`);
   assertStringIncludes(body, `This is some description.`);

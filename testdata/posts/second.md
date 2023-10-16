@@ -3,13 +3,9 @@ title: Second post
 author: CUSTOM AUTHOR NAME
 publish_date: 2022-05-02
 abstract: This is the second post.
-og:image: https://www.vixalien.com/.build/images/1200/posts/setup-git/banner.webp
-tags:
-  - hello
-  - hi
 ---
 
-![Picture of a cat that has been colorized](second/hello2.png)
+<img src="second/hello2.png"/>
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -19,9 +15,3 @@ typesetting, remaining essentially unchanged. It was popularised in the 1960s
 with the release of Letraset sheets containing Lorem Ipsum passages, and more
 recently with desktop publishing software like Aldus PageMaker including
 versions of Lorem Ipsum.
-
-```js
-const a = () => {
-  return "hello world!";
-};
-```

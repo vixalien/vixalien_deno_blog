@@ -99,7 +99,11 @@ export function Index({ state, posts }: IndexProps) {
                   <p>
                     {ogImage
                       ? (
-                        <a href={pathname} class="post-image" aria-label={title}>
+                        <a
+                          href={pathname}
+                          class="post-image"
+                          aria-label={title}
+                        >
                           <img src={ogImage} alt={title} />
                         </a>
                       )

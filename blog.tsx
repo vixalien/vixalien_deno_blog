@@ -24,6 +24,7 @@ import {
   relative,
   removeMarkdown,
   serve,
+  serveDir,
   walk,
 } from "./deps.ts";
 import { pooledMap } from "https://deno.land/std@0.193.0/async/pool.ts";
@@ -38,8 +39,6 @@ import type {
 } from "./types.d.ts";
 import { WalkEntry } from "https://deno.land/std@0.193.0/fs/walk.ts";
 import { MATH_STYLE_URI, renderMath } from "./markedMiddleware/math.ts";
-
-import staticFiles from "https://deno.land/x/static_files@1.1.6/mod.ts";
 
 export { imageContainer } from "./markedMiddleware/imageContainer.ts";
 export { highlight } from "./markedMiddleware/highlight.ts";
@@ -457,14 +456,7 @@ export async function handler(
     }
   }
 
-  const response = await staticFiles(
-    new URL(fsRoot, import.meta.url).href,
-    {
-      cacheControl: true,
-      brotli: true,
-      gzip: true,
-    },
-  )({ request: req, respondWith: (r: Response) => r });
+  const response = await serveDir(req, { fsRoot });
 
   if (response.status === 404) {
     return html({

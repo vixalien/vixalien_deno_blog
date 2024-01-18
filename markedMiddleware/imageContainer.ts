@@ -10,16 +10,35 @@ export interface ImageContainerOptions {
 
 let css: string | null = null;
 
+export function imageContainer(options: ImageContainerOptions): BlogMiddleware;
 export function imageContainer(
-  { addCSS = true }: ImageContainerOptions = {},
+  {
+    addCSS = true,
+    mediumZoom = false,
+  } = {},
 ): BlogMiddleware {
   return async function (_req, ctx) {
     if (!css && addCSS) {
       css = await load("./image-container.css");
     }
 
-    if (!loaded && css) {
-      ctx.state.styles = [...(ctx.state.styles || []), css];
+    if (!loaded) {
+      if (css) {
+        ctx.state.styles = [...(ctx.state.styles || []), css];
+      }
+
+      if (mediumZoom) {
+        ctx.state.scripts = [
+          ...(ctx.state.scripts || []),
+          {
+            defer: true,
+            type: "module",
+            text:
+`import "https://unpkg.com/medium-zoom/dist/medium-zoom.min.js";
+mediumZoom("div.block-image > img", { margin: 30, background: "color-mix(in srgb, var(--bg) 70%, transparent)" })`,
+          },
+        ];
+      }
     }
 
     ctx.marked.use({

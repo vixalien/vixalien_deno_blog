@@ -85,6 +85,8 @@ export interface BlogSettings {
   notFound?: (props: { req: Request; ctx: BlogContext }) => JSX.Element;
   /** Whether to display readtime or not */
   readtime?: boolean;
+  /** Additional scripts */
+  scripts?: HtmlOptions["scripts"];
 }
 
 export interface BlogState extends BlogSettings {

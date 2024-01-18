@@ -346,9 +346,12 @@ export async function handler(
     }
   }
 
+  const scripts = blogState.scripts || [];
+
   const sharedHtmlOptions: HtmlOptions = {
     lang: blogState.lang ?? "en",
-    scripts: IS_DEV ? [{ src: "/hmr.js" }] : undefined,
+    scripts: IS_DEV ? [{ src: "/hmr.js" }, ...scripts] : scripts,
+    styles: blogState.styles,
     links: [
       { href: canonicalUrl, rel: "canonical" },
       ...(blogState.headLinks ?? []),
@@ -400,7 +403,6 @@ export async function handler(
         "twitter:image": ogImage ?? blogState.cover,
         "twitter:card": ogImage ? twitterCard : undefined,
       },
-      styles: blogState.styles,
       body: (
         <Index
           state={blogState}
@@ -432,9 +434,6 @@ export async function handler(
         "twitter:image": post.ogImage,
         "twitter:card": post.ogImage ? twitterCard : undefined,
       },
-      styles: [
-        ...(blogState.styles ? blogState.styles : []),
-      ],
       links: [
         ...(sharedHtmlOptions.links ?? []),
         ...(post.renderMath

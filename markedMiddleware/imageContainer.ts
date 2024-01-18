@@ -3,17 +3,23 @@ import { load } from "./util.ts";
 
 let loaded = false;
 
-export const imageContainer: (
-  props?: { addCSS: boolean },
-) => Promise<BlogMiddleware> = async (props = { addCSS: true }) => {
-  const { addCSS = true } = props;
-  const css = addCSS ? await load("./image-container.css") : null;
+export interface ImageContainerOptions {
+  addCSS?: boolean;
+  mediumZoom?: boolean;
+}
 
-  return (_req, ctx) => {
-    if (!loaded) {
-      if (addCSS && css) {
-        ctx.state.styles = [...(ctx.state.styles || []), css];
-      }
+let css: string | null = null;
+
+export function imageContainer(
+  { addCSS = true }: ImageContainerOptions = {},
+): BlogMiddleware {
+  return async function (_req, ctx) {
+    if (!css && addCSS) {
+      css = await load("./image-container.css");
+    }
+
+    if (!loaded && css) {
+      ctx.state.styles = [...(ctx.state.styles || []), css];
     }
 
     ctx.marked.use({
@@ -52,4 +58,4 @@ export const imageContainer: (
 
     return ctx.next();
   };
-};
+}

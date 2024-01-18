@@ -39,17 +39,22 @@ function escape(html: string, encode: boolean) {
 
 let loaded = false;
 
-export const highlight: (
-  props?: { addCSS: boolean },
-) => Promise<BlogMiddleware> = async (props = { addCSS: true }) => {
-  const { addCSS = true } = props;
-  const css = addCSS ? await load("./highlight.css") : null;
+export interface HighlightOptions {
+  addCSS?: boolean;
+}
 
-  return (_req, ctx) => {
-    if (!loaded) {
-      if (addCSS && css) {
-        ctx.state.styles = [...(ctx.state.styles || []), css];
-      }
+let css: string | null = null;
+
+export function highlight(
+  { addCSS = true }: HighlightOptions = {},
+): BlogMiddleware {
+  return async function (_req, ctx) {
+    if (!css && addCSS) {
+      css = await load("./highlight.css");
+    }
+
+    if (!loaded && css) {
+      ctx.state.styles = [...(ctx.state.styles || []), css];
     }
 
     ctx.marked.use({
@@ -83,4 +88,4 @@ export const highlight: (
 
     return ctx.next();
   };
-};
+}
